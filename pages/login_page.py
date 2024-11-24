@@ -15,4 +15,6 @@ class LoginPage(BasePage):
         self.add_text_to_element(LoginPageLocators.PASSWORD_INPUT_FIELD_LOGIN_FORM, data.TEST_ACCOUNT_PASSWORD)
         self.click_to_element(LoginPageLocators.LOGIN_BUTTON_ON_LOGIN_FORM)
 
-
+    @allure.step('Открываем страницу восстановления пароля')
+    def get_password_recovery_page(self):
+        self.click_to_element(LoginPageLocators.PASSWORD_RECOVERY_BUTTON_ON_LOGIN_PAGE)
