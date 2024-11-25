@@ -1,3 +1,4 @@
+import data
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
 from pages.profile_page import ProfilePage
@@ -19,7 +20,7 @@ class TestProfilePage:
         login_page = LoginPage(driver)
         profile_page = ProfilePage(driver)
         main_page.open_main_page_and_get_login_page()
-        login_page.login_test_account()
+        login_page.login_test_account(data.TEST_ACCOUNT_EMAIL)
         profile_page.get_orders_history_page()
         assert '#0152756' in profile_page.get_text_from_element(ProfilePageLocators.TEST_ORDER)
 
@@ -29,6 +30,6 @@ class TestProfilePage:
         login_page = LoginPage(driver)
         profile_page = ProfilePage(driver)
         main_page.open_main_page_and_get_login_page()
-        login_page.login_test_account()
+        login_page.login_test_account(data.TEST_ACCOUNT_EMAIL)
         profile_page.push_exit_button()
         assert login_page.get_text_from_recovery_page_button() == 'Восстановить пароль'

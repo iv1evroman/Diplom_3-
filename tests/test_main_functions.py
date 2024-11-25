@@ -2,6 +2,7 @@ import time
 
 import data
 from pages.main_page import MainPage
+from pages.login_page import LoginPage
 from pages.order_feed_page import OrderFeedPage
 from locators.main_page_locators import MainPageLocators
 import allure
@@ -37,3 +38,12 @@ class TestMainFunctions:
     def test_add_ingredient_to_order_and_verify_that_ingredient_counter_increases(self, driver):
         main_page = MainPage(driver)
         assert main_page.open_main_page_and_add_ingredient_to_order() == '1'
+
+    @allure.title('Тест на то, что залогиненный пользователь может оформить заказ')
+    def test_login_and_create_order(self, driver):
+        main_page = MainPage(driver)
+        login_page = LoginPage(driver)
+        main_page.open_main_page_and_get_login_page()
+        login_page.login_test_account(data.EMAIL_FOR_ORDERS)
+        main_page.add_ingredient_and_create_order()
+        assert main_page.get_text_from_element(MainPageLocators.ORDER_IS_PREPARING) == 'Ваш заказ начали готовить'

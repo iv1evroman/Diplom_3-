@@ -33,5 +33,13 @@ class MainPage(BasePage):
         else:
             self.get_main_page()
             self.drag_and_drop_element_firefox(MainPageLocators.SPICY_SAUCE_BUTTON, MainPageLocators.ORDER_BASKET)
-            time.sleep(3)
             return self.get_text_from_element(MainPageLocators.SPICY_SAUCE_COUNTER)
+
+    @allure.step('Добавляем ингредиент в заказ и нажимаем кнопку "Оформить заказ"')
+    def add_ingredient_and_create_order(self):
+        if data.DRIVER_NAME == "chrome":
+            self.def_drag_and_drop_element_chrome(MainPageLocators.SPICY_SAUCE_BUTTON, MainPageLocators.ORDER_BASKET)
+            self.click_to_element(MainPageLocators.CREATE_ORDER_BUTTON)
+        else:
+            self.drag_and_drop_element_firefox(MainPageLocators.SPICY_SAUCE_BUTTON, MainPageLocators.ORDER_BASKET)
+            self.click_to_element(MainPageLocators.CREATE_ORDER_BUTTON)

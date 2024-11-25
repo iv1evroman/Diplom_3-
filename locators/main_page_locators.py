@@ -18,3 +18,5 @@ class MainPageLocators:
     # главной странице
     SPICY_SAUCE_COUNTER = (By.XPATH, './/a[contains(@href, "/ingredient/61c0c5a71d1f82001bdaaa72")]/div/p')  # Каунтер
     # острого соуса
+    CREATE_ORDER_BUTTON = (By.XPATH, './/button[contains(text(),"Оформить заказ")]')  # Кнопка оформить заказ
+    ORDER_IS_PREPARING = By.XPATH, './/p[contains(text(),"Ваш заказ начали готовить")]'
