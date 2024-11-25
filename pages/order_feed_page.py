@@ -13,3 +13,7 @@ class OrderFeedPage(BasePage):
     @allure.step('получаем текст заколовка "Лента заказов"')
     def get_order_feed_page_header_text(self):
         return self.get_text_from_element(OrderFeedPageLocators.ORDER_FEED_PAGE_HEADER)
+
+    @allure.step('Открываем  страницу "Конструктор"')
+    def get_constructor_page(self):
+        self.click_to_element(HeaderLocators.CONSTRUCTOR_BUTTON_ON_THE_TOP)
