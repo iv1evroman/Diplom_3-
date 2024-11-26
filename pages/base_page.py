@@ -59,3 +59,8 @@ class BasePage:
                            evt.initMouseEvent("dragend", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
                            source.dispatchEvent(evt);
                        """, element_from, element_to)
+
+    def move_to_element_and_click_firefox(self, locator):
+        element = WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(locator))
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).click(element).perform()

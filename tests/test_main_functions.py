@@ -1,10 +1,7 @@
-import time
-
 import data
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
 from pages.order_feed_page import OrderFeedPage
-from locators.main_page_locators import MainPageLocators
 import allure
 
 
@@ -31,7 +28,7 @@ class TestMainFunctions:
     def test_click_to_cross_and_close_ingredient_details(self, driver):
         main_page = MainPage(driver)
         main_page.open_main_page_click_to_spicy_sauce_and_click_to_close_details_card()
-        status = main_page.find_element_with_wait(MainPageLocators.INGREDIENT_DETAILS_BOX)
+        status = main_page.get_parent_element_of_ingredient_details_box()
         assert status.get_attribute('class') == 'Modal_modal__P3_V5'
 
     @allure.title('Тест на то, что при добавлении ингредиента в заказ, увеличивается каунтер данного ингредиента')
@@ -44,6 +41,6 @@ class TestMainFunctions:
         main_page = MainPage(driver)
         login_page = LoginPage(driver)
         main_page.open_main_page_and_get_login_page()
-        login_page.login_test_account(data.EMAIL_FOR_ORDERS)
+        login_page.login_test_account_for_orders()
         main_page.add_ingredient_and_create_order()
-        assert main_page.get_text_from_element(MainPageLocators.ORDER_IS_PREPARING) == 'Ваш заказ начали готовить'
+        assert main_page.get_order_is_ready_text() == True

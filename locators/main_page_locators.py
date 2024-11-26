@@ -20,3 +20,6 @@ class MainPageLocators:
     # острого соуса
     CREATE_ORDER_BUTTON = (By.XPATH, './/button[contains(text(),"Оформить заказ")]')  # Кнопка оформить заказ
     ORDER_IS_PREPARING = By.XPATH, './/p[contains(text(),"Ваш заказ начали готовить")]'
+    ORDER_NUMBER_ON_NEW_ORDER_CARD = (By.XPATH,
+                                      './/h2[@class="Modal_modal__title_shadow'
+                                      '__3ikwq Modal_modal__title__2L34m text text_type_digits-large mb-8"]')
