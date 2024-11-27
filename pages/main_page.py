@@ -20,9 +20,11 @@ class MainPage(BasePage):
     def open_main_page_click_to_spicy_sauce_and_get_text_from_details_card(self):
         if data.DRIVER_NAME == "chrome":
             self.get_main_page()
+            self.scroll_to_element(MainPageLocators.SPICY_SAUCE_BUTTON)
             self.click_to_element(MainPageLocators.SPICY_SAUCE_BUTTON)
         else:
             self.get_main_page()
+            self.scroll_to_element(MainPageLocators.SPICY_SAUCE_BUTTON)
             self.move_to_element_and_click_firefox(MainPageLocators.SPICY_SAUCE_BUTTON)
         return self.get_text_from_element(MainPageLocators.DETAILS_CARD_HEADER)
 

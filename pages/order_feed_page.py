@@ -32,8 +32,8 @@ class OrderFeedPage(BasePage):
         else:
             self.move_to_element_and_click_firefox(OrderFeedPageLocators.ORDER_BOX)
 
-    @allure.step('получаем количество заказов за все время')
-    def get_order_feed_page_and_get_all_time_counter_quantity(self):
+    @allure.step('получаем количество заказов за все время до заказа')
+    def get_order_feed_page_and_get_all_time_counter_quantity_before_order(self):
         if data.DRIVER_NAME == "chrome":
             self.click_to_element(HeaderLocators.ORDER_FEED_BUTTON_ON_THE_TOP)
         else:
@@ -42,15 +42,39 @@ class OrderFeedPage(BasePage):
         number = self.get_text_from_element(OrderFeedPageLocators.ALL_TIME_COUNTER)
         return int(number)
 
-    @allure.step('получаем количество заказов за сегодня')
-    def get_order_feed_page_and_get_today_counter_quantity(self):
+    @allure.step('получаем количество заказов за все время после заказа')
+    def get_order_feed_page_and_get_all_time_counter_quantity_after_order(self, number):
+        if data.DRIVER_NAME == "chrome":
+            self.click_to_element(HeaderLocators.ORDER_FEED_BUTTON_ON_THE_TOP)
+        else:
+            self.move_to_element_and_click_firefox(HeaderLocators.ORDER_FEED_BUTTON_ON_THE_TOP)
+        WebDriverWait(self.driver, 10).until(
+            expected_conditions.text_to_be_present_in_element(OrderFeedPageLocators.IN_PROGRESS_LIST, number))
+        self.scroll_to_element(OrderFeedPageLocators.ALL_TIME_COUNTER)
+        number = self.get_text_from_element(OrderFeedPageLocators.ALL_TIME_COUNTER)
+        return int(number)
+
+    @allure.step('получаем количество заказов за сегодня до заказа')
+    def get_order_feed_page_and_get_today_counter_quantity_before_order(self):
         if data.DRIVER_NAME == "chrome":
             self.click_to_element(HeaderLocators.ORDER_FEED_BUTTON_ON_THE_TOP)
         else:
             self.move_to_element_and_click_firefox(HeaderLocators.ORDER_FEED_BUTTON_ON_THE_TOP)
         self.scroll_to_element(OrderFeedPageLocators.TODAY_COUNTER)
-        number = self.get_text_from_element(OrderFeedPageLocators.TODAY_COUNTER)
-        return int(number)
+        num = self.get_text_from_element(OrderFeedPageLocators.TODAY_COUNTER)
+        return int(num)
+
+    @allure.step('получаем количество заказов за сегодня после заказа')
+    def get_order_feed_page_and_get_today_counter_quantity_after_order(self, number):
+        if data.DRIVER_NAME == "chrome":
+            self.click_to_element(HeaderLocators.ORDER_FEED_BUTTON_ON_THE_TOP)
+        else:
+            self.move_to_element_and_click_firefox(HeaderLocators.ORDER_FEED_BUTTON_ON_THE_TOP)
+        WebDriverWait(self.driver, 10).until(
+            expected_conditions.text_to_be_present_in_element(OrderFeedPageLocators.IN_PROGRESS_LIST, number))
+        self.scroll_to_element(OrderFeedPageLocators.TODAY_COUNTER)
+        num = self.get_text_from_element(OrderFeedPageLocators.TODAY_COUNTER)
+        return int(num)
 
     @allure.step('получаем список заказов в работе')
     def get_order_feed_page_and_get_in_progress_list(self, number):

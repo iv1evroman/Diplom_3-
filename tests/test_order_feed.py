@@ -36,13 +36,14 @@ class TestOrderFeedPage:
         main_page = MainPage(driver)
         login_page = LoginPage(driver)
         main_page.get_main_page()
-        before_order_quantity = order_feed_page.get_order_feed_page_and_get_all_time_counter_quantity()
+        before_order_quantity = order_feed_page.get_order_feed_page_and_get_all_time_counter_quantity_before_order()
         main_page.open_main_page_and_get_login_page()
         login_page.login_test_account_for_orders()
         main_page.add_ingredient_and_create_order()
         main_page.wait_for_new_order_number()
+        number = main_page.get_new_order_number()
         main_page.close_order_details_card()
-        after_order_quantity = order_feed_page.get_order_feed_page_and_get_all_time_counter_quantity()
+        after_order_quantity = order_feed_page.get_order_feed_page_and_get_all_time_counter_quantity_after_order(number)
         assert after_order_quantity > before_order_quantity
 
     @allure.title('Тест на то, что при создании нового заказа счётчик Выполнено за сегодня увеличивается')
@@ -51,13 +52,14 @@ class TestOrderFeedPage:
         main_page = MainPage(driver)
         login_page = LoginPage(driver)
         main_page.get_main_page()
-        before_order_quantity = order_feed_page.get_order_feed_page_and_get_today_counter_quantity()
+        before_order_quantity = order_feed_page.get_order_feed_page_and_get_today_counter_quantity_before_order()
         main_page.open_main_page_and_get_login_page()
         login_page.login_test_account_for_orders()
         main_page.add_ingredient_and_create_order()
         main_page.wait_for_new_order_number()
+        number = main_page.get_new_order_number()
         main_page.close_order_details_card()
-        after_order_quantity = order_feed_page.get_order_feed_page_and_get_today_counter_quantity()
+        after_order_quantity = order_feed_page.get_order_feed_page_and_get_today_counter_quantity_after_order(number)
         assert after_order_quantity > before_order_quantity
 
     @allure.title('Тест на то, что после оформления заказа его номер появляется в разделе В работе.')
