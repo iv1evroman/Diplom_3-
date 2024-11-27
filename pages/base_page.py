@@ -66,6 +66,7 @@ class BasePage:
                        """, element_from, element_to)
 
     def move_to_element_and_click_firefox(self, locator):
+        WebDriverWait(self.driver, 10).until(expected_conditions.visibility_of_element_located(locator))
         element = WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(locator))
         actions = ActionChains(self.driver)
         actions.move_to_element(element).click(element).perform()
