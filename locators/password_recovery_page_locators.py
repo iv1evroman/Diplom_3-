@@ -10,4 +10,4 @@ class PasswordRecoveryPageLocators:
     # ввода нового пароля
     PASSWORD_INPUT_FIELD_ON_RECOVERY_PAGE = (By.XPATH, '//label[ text()="Пароль" ]/parent::div/input')  # Поле пароль
     # на форме ввода нового пароля
-    SHOW_AND_HIDE_BUTTON = By.XPATH, "//svg:svg[@fill='#F2F2F3']"  # Кнопка показать/скрыть пароль
+    SHOW_AND_HIDE_BUTTON = By.CSS_SELECTOR, '.input__icon > svg:nth-child(1)'  # Кнопка показать/скрыть пароль

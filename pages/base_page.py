@@ -26,6 +26,11 @@ class BasePage:
     def get_text_from_element(self, locator):
         return self.find_element_with_wait(locator).text
 
+    def find_elements(self, locator):
+        WebDriverWait(self.driver, 10).until(expected_conditions.visibility_of_element_located(locator))
+        return self.driver.find_elements(*locator)
+
+
     def scroll_to_element(self, locator):
         element = self.find_element_with_wait(locator)
         self.driver.execute_script("arguments[0].scrollIntoView();", element)

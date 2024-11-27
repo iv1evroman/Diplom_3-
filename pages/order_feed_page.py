@@ -52,22 +52,27 @@ class OrderFeedPage(BasePage):
         number = self.get_text_from_element(OrderFeedPageLocators.TODAY_COUNTER)
         return int(number)
 
-
     @allure.step('получаем список заказов в работе')
-    def get_order_feed_page_and_get_in_progress_list(self):
+    def get_order_feed_page_and_get_in_progress_list(self, number):
         if data.DRIVER_NAME == "chrome":
             self.click_to_element(HeaderLocators.ORDER_FEED_BUTTON_ON_THE_TOP)
         else:
             self.move_to_element_and_click_firefox(HeaderLocators.ORDER_FEED_BUTTON_ON_THE_TOP)
         self.get_text_from_element(OrderFeedPageLocators.IN_PROGRESS_LIST)
         WebDriverWait(self.driver, 10).until(expected_conditions.none_of(expected_conditions.text_to_be_present_in_element(OrderFeedPageLocators.IN_PROGRESS_LIST, 'Все текущие заказы готовы!')))
+        WebDriverWait(self.driver, 10).until(expected_conditions.text_to_be_present_in_element(OrderFeedPageLocators.IN_PROGRESS_LIST, number))
         return self.get_text_from_element(OrderFeedPageLocators.IN_PROGRESS_LIST)
 
     @allure.step('получаем заголовок "Состав" из всплывающего окна с деталями об ингридиентах')
     def get_content_title_from_order_details_box(self):
         return self.get_text_from_element(OrderFeedPageLocators.CONTENT_TITLE_IN_ORDER_BOX)
 
-    @allure.step('находим заказ в ленте по номеру')
-    def find_order_by_number(self, number):
-        self.find_element_with_wait()
-        return self.get_text_from_element(f'{OrderFeedPageLocators.ORDER_BOX}/a/div[1]/p[contains(text(),{number})]')
+    @allure.step('получаем последние 10 номеров заказов в ленте')
+    def get_last_20_order_numbers(self):
+        lst = self.find_elements(OrderFeedPageLocators.ORDER_NUMBERS)
+        lst = list(lst)
+        n = []
+        for i in lst:
+            n.append(i.text)
+        return n[0:10]
+

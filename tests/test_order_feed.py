@@ -1,4 +1,3 @@
-import data
 from pages.order_feed_page import OrderFeedPage
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
@@ -16,7 +15,7 @@ class TestOrderFeedPage:
 
     @allure.title('Тест на то, что заказы пользователя из раздела «История заказов» отображаются на'
                   ' странице «Лента заказов»')
-    def test_open_orders_history_page(self, driver):
+    def test_order_number_from_history_section_displays_in_order_feed(self, driver):
         main_page = MainPage(driver)
         login_page = LoginPage(driver)
         profile_page = ProfilePage(driver)
@@ -29,7 +28,7 @@ class TestOrderFeedPage:
         profile_page.get_orders_history_page()
         number = profile_page.get_last_order_number()
         order_feed_page.get_order_feed_page()
-        assert number == order_feed_page.find_order_by_number(number)
+        assert number in order_feed_page.get_last_20_order_numbers()
 
     @allure.title('Тест на то, что при создании нового заказа счётчик Выполнено за всё время увеличивается')
     def test_create_order_and_all_time_counter_increases(self, driver):
@@ -72,4 +71,4 @@ class TestOrderFeedPage:
         main_page.wait_for_new_order_number()
         number = main_page.get_new_order_number()
         main_page.close_order_details_card()
-        assert number in order_feed_page.get_order_feed_page_and_get_in_progress_list()
+        assert number in order_feed_page.get_order_feed_page_and_get_in_progress_list(number)

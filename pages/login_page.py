@@ -30,6 +30,8 @@ class LoginPage(BasePage):
     @allure.step('Открываем страницу восстановления пароля')
     def get_password_recovery_page(self):
         if data.DRIVER_NAME == "chrome":
+            self.scroll_to_element(LoginPageLocators.PASSWORD_RECOVERY_BUTTON_ON_LOGIN_PAGE)
             self.click_to_element(LoginPageLocators.PASSWORD_RECOVERY_BUTTON_ON_LOGIN_PAGE)
         else:
+            self.scroll_to_element(LoginPageLocators.PASSWORD_RECOVERY_BUTTON_ON_LOGIN_PAGE)
             self.move_to_element_and_click_firefox(LoginPageLocators.PASSWORD_RECOVERY_BUTTON_ON_LOGIN_PAGE)
